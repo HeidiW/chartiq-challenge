@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>  
+  <script type="text/javascript">
+  window.onload = function () {
+    var chart = new CanvasJS.Chart("chartContainer",
+    {
+      title:{
+      text: "Moving Average Closing Price of IBM"
+      },
+      theme: "dark2",
+      toolTip: {
+      shared: true,
+      content: "{x}: {x} ,{name}: {y}"
+      },
+      axisX: {
+        title: "Date",
+        labelAngle: -30
+      },
+      axisY: {
+        labelFormatter: function (e) {
+				return "$" + CanvasJS.formatNumber(e.value, "0.00");
+			  },
+			     includeZero: false
+		    },
+       data: [{
+        xValueFormatString: "MM-DD-YY",      
+        type: "spline",
+        toolTipContent: "{x}<br/>{name}: <strong>{y}</strong> USD", 
+        name: "Closing Price",
+        markerSize: 10,
+        dataPoints: [
+        { x: new Date(2018, 07, 10), y: 18.280001 },
+        { x: new Date(2018, 07, 11), y: 17.440001 },
+        { x: new Date(2018, 07, 12), y: 19.620001 },
+        { x: new Date(2018, 07, 13), y: 20.700001 },
+        { x: new Date(2018, 07, 16), y: 20.379999 },
+        { x: new Date(2018, 07, 17), y: 20.18 },
+        { x: new Date(2018, 07, 18), y: 18.809999 },
+        { x: new Date(2018, 07, 19), y: 19.5 },
+        { x: new Date(2018, 07, 20), y: 19 },
+        { x: new Date(2018, 07, 23), y: 18.620001 },
+        { x: new Date(2018, 07, 24), y: 19.48 },
+        { x: new Date(2018, 07, 25), y: 19.84 }      
+        ]
+      }],
+    });
+
+    chart.render();
+  }
+  </script>
+  <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script></head>
+<body>
+  <div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;">
+  </div>
+</body>
+</html>
