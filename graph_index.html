@@ -1,60 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
-<meta charset="utf-8">
-<meta name="viewport">
-<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 <head>
-  <script>
-    window.onload = function () {
-      const chart = new CanvasJS.Chart("chartContainer",
-        {
-          title: {
-            text: "Moving Average Closing Price of IBM"
-          },
-          theme: "dark2",
-          toolTip: {
-            shared: true,
-            content: "{x}: {x} ,{name}: {y}"
-          },
-          axisX: {
-            title: "Date",
-            labelAngle: -30
-          },
-          axisY: {
-            labelFormatter: function (e) {
-              return "$" + CanvasJS.formatNumber(e.value, "0.00");
-            },
-            includeZero: false
-          },
-          data: [{
-            xValueFormatString: "MM-DD-YY",
-            type: "spline",
-            toolTipContent: `{x}\n${name}: <strong>{y}</strong> USD`,
-            name: "Closing Price",
-            markerSize: 10,
-            dataPoints: [
-              { x: new Date(2018, 07, 10), y: 18.280001 },
-              { x: new Date(2018, 07, 11), y: 17.440001 },
-              { x: new Date(2018, 07, 12), y: 19.620001 },
-              { x: new Date(2018, 07, 13), y: 20.700001 },
-              { x: new Date(2018, 07, 16), y: 20.379999 },
-              { x: new Date(2018, 07, 17), y: 20.18 },
-              { x: new Date(2018, 07, 18), y: 18.809999 },
-              { x: new Date(2018, 07, 19), y: 19.5 },
-              { x: new Date(2018, 07, 20), y: 19 },
-              { x: new Date(2018, 07, 23), y: 18.620001 },
-              { x: new Date(2018, 07, 24), y: 19.48 },
-              { x: new Date(2018, 07, 25), y: 19.84 }
-            ]
-          }],
-        });
-      chart.render();
-    }
-  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+      @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+      </style>
 </head>
 <body>
-  <div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;">
-  </div>
+  <div id="chartContainer" style="height: 370px; max-width: 920px; margin: 10px 50px 20px 0;"></div>
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+  <!–– If I were to take more time with this, I would pull in this data either via API or csv, and use fetch or Ajax,
+  as opposed to hard-coding it in the page ––>
+  <script>
+    
+    const dataPoints = [
+      { x: new Date(2019, 0, 28), y: 134.27 },
+      { x: new Date(2019, 0, 29), y: 134.33 },
+      { x: new Date(2019, 0, 30), y: 134.38 },
+      { x: new Date(2019, 0, 31), y: 134.42 },
+      { x: new Date(2019, 01, 01), y: 134.10 },
+      { x: new Date(2019, 01, 04), y: 135.19 },
+      { x: new Date(2019, 01, 05), y: 135.55 },
+      { x: new Date(2019, 01, 06), y: 136.32 },
+      { x: new Date(2019, 01, 07), y: 133.19 },
+      { x: new Date(2019, 01, 08), y: 133.71 },
+      { x: new Date(2019, 01, 11), y: 19.48 },
+      { x: new Date(2019, 01, 12), y: 19.84 },
+      { x: new Date(2019, 01, 14), y: 20.059999 },
+      { x: new Date(2019, 01, 15), y: 20.27 },
+      { x: new Date(2019, 01, 16), y: 20.559999 },
+      { x: new Date(2019, 01, 19), y: 19.5 },
+      { x: new Date(2019, 02, 20), y: 21.09 },
+      { x: new Date(2019, 02, 22), y: 22.280001 },
+      { x: new Date(2019, 02, 23), y: 21.75 },
+      { x: new Date(2019, 02, 24), y: 23.309999 }
+    ];
+
+    const chart = new CanvasJS.Chart("chartContainer", {
+      title: {
+        fontFamily: 'Roboto',
+        text: "Moving Average Closing Price of IBM",
+        padding: 10,
+      },
+      axisX: {
+        labelAngle: -30,
+      },
+      axisY: {
+        includeZero: false,
+        labelFormatter: e => `$${CanvasJS.formatNumber(e.value, "0.00")}`
+      },
+      data: [{
+        dataPoints,
+        markerSize: 10,
+        name: "Closing Price",
+        toolTipContent: "{x}</br>{name}: <strong>{y}</strong> USD",
+        type: "spline",
+        xValueFormatString: "MM-DD-YY",
+      }],
+
+      theme: "dark2"
+    });
+
+    chart.render();
+  </script>
 </body>
 
 </html>
