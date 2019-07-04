@@ -10,60 +10,50 @@
 <body>
   <div id="chartContainer" style="height: 370px; max-width: 920px; margin: 10px 50px 20px 0;"></div>
   <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-  <!–– If I were to take more time with this, I would pull in this data either via API or csv, and use fetch or Ajax,
-  as opposed to hard-coding it in the page ––>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.0.0/papaparse.min.js"></script>
   <script>
-    
-    const dataPoints = [
-      { x: new Date(2019, 0, 28), y: 134.27 },
-      { x: new Date(2019, 0, 29), y: 134.33 },
-      { x: new Date(2019, 0, 30), y: 134.38 },
-      { x: new Date(2019, 0, 31), y: 134.42 },
-      { x: new Date(2019, 01, 01), y: 134.10 },
-      { x: new Date(2019, 01, 04), y: 135.19 },
-      { x: new Date(2019, 01, 05), y: 135.55 },
-      { x: new Date(2019, 01, 06), y: 136.32 },
-      { x: new Date(2019, 01, 07), y: 133.19 },
-      { x: new Date(2019, 01, 08), y: 133.71 },
-      { x: new Date(2019, 01, 11), y: 19.48 },
-      { x: new Date(2019, 01, 12), y: 19.84 },
-      { x: new Date(2019, 01, 14), y: 20.059999 },
-      { x: new Date(2019, 01, 15), y: 20.27 },
-      { x: new Date(2019, 01, 16), y: 20.559999 },
-      { x: new Date(2019, 01, 19), y: 19.5 },
-      { x: new Date(2019, 02, 20), y: 21.09 },
-      { x: new Date(2019, 02, 22), y: 22.280001 },
-      { x: new Date(2019, 02, 23), y: 21.75 },
-      { x: new Date(2019, 02, 24), y: 23.309999 }
-    ];
+    // using fetch locally requires a running local server. See README for info.
+    fetch('ibm.csv').then(response => {
 
-    const chart = new CanvasJS.Chart("chartContainer", {
-      title: {
-        fontFamily: 'Roboto',
-        text: "Moving Average Closing Price of IBM",
-        padding: 10,
-      },
-      axisX: {
-        labelAngle: -30,
-      },
-      axisY: {
-        includeZero: false,
-        labelFormatter: e => `$${CanvasJS.formatNumber(e.value, "0.00")}`
-      },
-      data: [{
-        dataPoints,
-        markerSize: 10,
-        name: "Closing Price",
-        toolTipContent: "{x}</br>{name}: <strong>{y}</strong> USD",
-        type: "spline",
-        xValueFormatString: "MM-DD-YY",
-      }],
+      // convert the fetch response to text data that we can pass to papaparse
+      const rawData = response.text();
 
-      theme: "dark2"
+      // parse the CSV and get a useable JS object
+      const objectData = Papa.parse(rawData, { header: true }).data;
+
+      // Transform the parsed JS object to match the x/y data points expected from CanvasJS
+      const dataPoints = objectData.map(row => ({
+        x: new Date(row.Date),
+        y: parseFloat(row.Close) // strings don't work, so convert the value to a real number
+      }));
+
+      const chart = new CanvasJS.Chart("chartContainer", {
+        title: {
+          fontFamily: 'Roboto',
+          text: "Moving Average Closing Price of IBM",
+          padding: 10,
+        },
+        axisX: {
+          labelAngle: -30,
+        },
+        axisY: {
+          includeZero: false,
+          labelFormatter: e => `$${CanvasJS.formatNumber(e.value, "0.00")}`
+        },
+        data: [{
+          dataPoints,
+          markerSize: 10,
+          name: "Closing Price",
+          toolTipContent: "{x}</br>{name}: <strong>{y}</strong> USD",
+          type: "spline",
+          xValueFormatString: "MM-DD-YY",
+        }],
+
+        theme: "dark2"
+      });
+
+      chart.render();
     });
-
-    chart.render();
   </script>
 </body>
-
 </html>
