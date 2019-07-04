@@ -12,12 +12,10 @@
   <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.0.0/papaparse.min.js"></script>
   <script>
-    // using fetch locally requires a running local server. See README for info.
-    fetch('ibm.csv').then(response => {
-
-      // convert the fetch response to text data that we can pass to papaparse
-      const rawData = response.text();
-
+    // Fetch returns a Promise, which is "thenable". The first `then()` converts
+    // the raw `response` into text, which we then pass to the second `then()`
+    // as `rawData`.
+    fetch('ibm.csv').then(response => response.text()).then(rawData => {
       // parse the CSV and get a useable JS object
       const objectData = Papa.parse(rawData, { header: true }).data;
 
