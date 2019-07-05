@@ -6,49 +6,11 @@
   <style>
       @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
       </style>
+      <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.0.0/papaparse.min.js"></script>
+      <script src="./script.js"></script>
 </head>
 <body>
   <div id="chartContainer" style="height: 370px; max-width: 1200px; margin: 10px 50px 20px 0;"></div>
-  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.0.0/papaparse.min.js"></script>
-  <script>
-    fetch('ibm.csv').then(response => response.text()).then(rawData => {
-      const objectData = Papa.parse(rawData, { header: true }).data;
-
-      // Transform the parsed JS object to match the x/y data points expected from CanvasJS
-      const dataPoints = objectData.map(row => ({
-        x: new Date(row.Date),
-        y: parseFloat(row.Close) 
-      }));
-
-      const chart = new CanvasJS.Chart("chartContainer", {
-        title: {
-          fontFamily: 'Roboto',
-          text: "Moving Average Closing Price of IBM",
-          padding: 10,
-        },
-        axisX: {
-          labelAngle: -30,
-        },
-        axisY: {
-          includeZero: false,
-          labelFormatter: e => `$${CanvasJS.formatNumber(e.value, "0.00")}`
-        },
-        data: [{
-          type: "spline",
-          connectNullData:true,
-          dataPoints,
-          markerSize: 10,
-          name: "Closing Price",
-          toolTipContent: "{x}</br>{name}: <strong>{y}</strong> USD",
-          xValueFormatString: "MM-DD-YY"
-        }],
-
-        theme: "dark2"
-      });
-
-      chart.render();
-    });
-  </script>
 </body>
 </html>
