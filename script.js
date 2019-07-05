@@ -1,6 +1,6 @@
 
     const fetch = require("node-fetch");
-    fetch('ibm.csv').then(response => response.text()).then(rawData => {
+    fetch('https://s3.amazonaws.com/www.heidiwilliamsfoy.com/ibm.csv').then(response => response.text()).then(rawData => {
       const objectData = Papa.parse(rawData, { header: true }).data;
 
       // Transform the parsed JS object to match the x/y data points expected from CanvasJS
