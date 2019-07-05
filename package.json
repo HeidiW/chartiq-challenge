@@ -6,6 +6,6 @@
   },
   "scripts": {
     "dev": "http-server",
-    "start": "node script.js"
+    "start": "script.js"
   }
 }
