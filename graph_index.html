@@ -8,21 +8,17 @@
       </style>
 </head>
 <body>
-  <div id="chartContainer" style="height: 370px; max-width: 920px; margin: 10px 50px 20px 0;"></div>
+  <div id="chartContainer" style="height: 370px; max-width: 1200px; margin: 10px 50px 20px 0;"></div>
   <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.0.0/papaparse.min.js"></script>
   <script>
-    // Fetch returns a Promise, which is "thenable". The first `then()` converts
-    // the raw `response` into text, which we then pass to the second `then()`
-    // as `rawData`.
     fetch('ibm.csv').then(response => response.text()).then(rawData => {
-      // parse the CSV and get a useable JS object
       const objectData = Papa.parse(rawData, { header: true }).data;
 
       // Transform the parsed JS object to match the x/y data points expected from CanvasJS
       const dataPoints = objectData.map(row => ({
         x: new Date(row.Date),
-        y: parseFloat(row.Close) // strings don't work, so convert the value to a real number
+        y: parseFloat(row.Close) 
       }));
 
       const chart = new CanvasJS.Chart("chartContainer", {
@@ -39,12 +35,13 @@
           labelFormatter: e => `$${CanvasJS.formatNumber(e.value, "0.00")}`
         },
         data: [{
+          type: "spline",
+          connectNullData:true,
           dataPoints,
           markerSize: 10,
           name: "Closing Price",
           toolTipContent: "{x}</br>{name}: <strong>{y}</strong> USD",
-          type: "spline",
-          xValueFormatString: "MM-DD-YY",
+          xValueFormatString: "MM-DD-YY"
         }],
 
         theme: "dark2"
