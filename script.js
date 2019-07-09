@@ -1,5 +1,3 @@
-
-    const fetch = require("node-fetch");
     fetch('https://s3.amazonaws.com/www.heidiwilliamsfoy.com/ibm.csv').then(response => response.text()).then(rawData => {
       const objectData = Papa.parse(rawData, { header: true }).data;
 
