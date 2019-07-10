@@ -48,7 +48,7 @@ function calculateMovingAverage(chart) {
 
 
 // First, get the csv, then run the function as a callback
-$.get("./ibm.csv", function(response) {
+$.get("https://s3.amazonaws.com/www.heidiwilliamsfoy.com/chartiq-challenge/ibm.csv", function(response) {
     const chart = new CanvasJS.Chart("chartContainer", {
         title: {
             fontFamily: 'Roboto',
