@@ -52,7 +52,7 @@ $.get("https://s3.amazonaws.com/www.heidiwilliamsfoy.com/chartiq-challenge/ibm.c
     const chart = new CanvasJS.Chart("chartContainer", {
         title: {
             fontFamily: 'Roboto',
-            text: "IBM 20-Day Moving Average Closing Price",
+            text: "IBM 20-Day Moving Average",
             padding: 10,
         },
         axisX: {
