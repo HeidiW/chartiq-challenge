@@ -1,5 +1,6 @@
 //first, get data from CSV and return it as array
     const dataPoints = [];
+    //https://canvasjs.com/docs/charts/how-to/create-charts-from-csv/
     function getDataPointsFromCSV(csv) {
     let objectData = csvLines = points = [];
     csvLines = csv.split(/[\r?\n|\r|\n]+/);
@@ -41,6 +42,7 @@
   });
 });
 // Function to calculate n-Day Simple moving average
+//https://jsfiddle.net/canvasjs/tq339Lm1/ works here
 function calculateMovingAverage(chart) {
   var numOfDays = 20;
   // return if there are insufficient dataPoints
