@@ -26,7 +26,7 @@ function calculateMovingAverage(chart) {
     for(let i = numOfDays; i < chartData.length; i++) {
         let total = 0;
 
-        for(let j = i - numOfDays; j < i; j++) {
+        for(let j = (i - numOfDays); j < i; j++) {
             total += chartData[j].y;
         }
 
@@ -36,7 +36,7 @@ function calculateMovingAverage(chart) {
         });
     }
 
-    // once all the data is calculated, we add a new line
+    // once all the data is calculated, I add a new line
     chart.options.data.push({
         type: "spline",
         markerSize: 0,
