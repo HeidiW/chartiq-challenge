@@ -39,6 +39,7 @@ function calculateMovingAverage(chart) {
     // once all the data is calculated, I add a new line
     chart.options.data.push({
         type: "spline",
+        showInLegend: true, 
         markerSize: 0,
         name: "20-Day Moving Average",
         dataPoints: newPoints,
@@ -64,6 +65,7 @@ $.get("https://s3.amazonaws.com/www.heidiwilliamsfoy.com/chartiq-challenge/ibm.c
         },
         data: [{
             dataPoints: getDataPointsFromCSV(response),
+            showInLegend: true, 
             markerSize: 5,
             name: "Closing Price",
             toolTipContent: "{x}</br>{name}: <strong>{y}</strong> USD",
