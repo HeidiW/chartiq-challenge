@@ -40,7 +40,7 @@ function calculateMovingAverage(chart) {
     chart.options.data.push({
         type: "spline",
         markerSize: 0,
-        name: "Moving Average of IBM Stock Over 20 Day Period",
+        name: "20-Day Moving Average",
         dataPoints: newPoints,
         toolTipContent: "{x}</br>{name}: <strong>{y}</strong> USD"
     });
